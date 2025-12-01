@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Update Doctor Profile
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Update Doctor</h1>
+
+<form method="post" action="{{ url_for('updatedoc_post', username=doctor.username) }}" class="mx-auto" style="max-width: 500px;">
+    <div class="mb-3">
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" id="name" name="name" class="form-control" value="{{ doctor.name }}" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" class="form-control" value="{{ doctor.username }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="department" class="form-label">Department</label>
+        <input type="text" id="department" name="department" class="form-control" value="{{ doctor.department }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="currpassword" class="form-label">Current Password</label>
+        <input type="password" id="currpassword" name="currpassword" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="newpassword" class="form-label">New Password</label>
+        <input type="password" id="newpassword" name="newpassword" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="confirmnewpassword" class="form-label">Confirm New Password</label>
+        <input type="password" id="confirmnewpassword" name="confirmnewpassword" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+</form>
+{% endblock %}

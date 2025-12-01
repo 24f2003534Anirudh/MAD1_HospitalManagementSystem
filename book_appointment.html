@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Book Appointment
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    
+    <!-- Doctor Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Dr. {{ doctor.name or doctor.username }}</h1>
+        <h4 class="text-primary mb-3">{{ doctor.department }} Specialist</h4>
+        <p class="text-muted">Select an available time slot below to book your appointment.</p>
+        <a href="{{ url_for('patient_dashboard') }}" class="btn btn-outline-secondary btn-sm">Cancel & Go Back</a>
+    </div>
+
+    <!-- Availability Grid -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            
+            {% for day in days %}
+            {% set d_str = day.strftime('%Y-%m-%d') %}
+            {% set day_av = availability_map.get(d_str, {}) %}
+            
+            <div class="row mb-3 align-items-center">
+                
+                <!-- Date Column -->
+                <div class="col-md-3">
+                    <div class="p-3 bg-light border text-center fw-bold rounded">
+                        {{ day.strftime('%d/%m/%Y') }}<br>
+                        <small class="text-muted fw-normal">{{ day.strftime('%A') }}</small>
+                    </div>
+                </div>
+
+                <!-- Slot 1: Morning (08:00) -->
+                <div class="col-md-3">
+                    {% if day_av.get('morning') %}
+                    <form method="POST" action="{{ url_for('book_appointment_post', doc_username=doctor.username) }}">
+                        <input type="hidden" name="date" value="{{ d_str }}">
+                        <input type="hidden" name="time" value="08:00">
+                        <button type="submit" class="btn btn-success w-100 p-3 fw-bold shadow-sm" onclick="return confirm('Book appointment for {{ day.strftime('%d/%m') }} at 08:00 AM?');">
+                            08:00 AM<br><small>Available</small>
+                        </button>
+                    </form>
+                    {% else %}
+                    <button class="btn btn-outline-danger w-100 p-3 fw-bold disabled" disabled style="opacity: 0.6;">
+                        08:00 AM<br><small>Unavailable</small>
+                    </button>
+                    {% endif %}
+                </div>
+
+                <!-- Slot 2: Afternoon (12:00) -->
+                <div class="col-md-3">
+                    {% if day_av.get('afternoon') %}
+                    <form method="POST" action="{{ url_for('book_appointment_post', doc_username=doctor.username) }}">
+                        <input type="hidden" name="date" value="{{ d_str }}">
+                        <input type="hidden" name="time" value="12:00">
+                        <button type="submit" class="btn btn-success w-100 p-3 fw-bold shadow-sm" onclick="return confirm('Book appointment for {{ day.strftime('%d/%m') }} at 12:00 PM?');">
+                            12:00 PM<br><small>Available</small>
+                        </button>
+                    </form>
+                    {% else %}
+                    <button class="btn btn-outline-danger w-100 p-3 fw-bold disabled" disabled style="opacity: 0.6;">
+                        12:00 PM<br><small>Unavailable</small>
+                    </button>
+                    {% endif %}
+                </div>
+
+                <!-- Slot 3: Evening (16:00) -->
+                <div class="col-md-3">
+                    {% if day_av.get('evening') %}
+                    <form method="POST" action="{{ url_for('book_appointment_post', doc_username=doctor.username) }}">
+                        <input type="hidden" name="date" value="{{ d_str }}">
+                        <input type="hidden" name="time" value="16:00">
+                        <button type="submit" class="btn btn-success w-100 p-3 fw-bold shadow-sm" onclick="return confirm('Book appointment for {{ day.strftime('%d/%m') }} at 04:00 PM?');">
+                            04:00 PM<br><small>Available</small>
+                        </button>
+                    </form>
+                    {% else %}
+                    <button class="btn btn-outline-danger w-100 p-3 fw-bold disabled" disabled style="opacity: 0.6;">
+                        04:00 PM<br><small>Unavailable</small>
+                    </button>
+                    {% endif %}
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

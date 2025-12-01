@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    View Doctors
+{% endblock %}
+
+{% block content %}
+<h1 class="display-3 text-center mb-4">Available Doctors</h1>
+
+<div class="d-flex justify-content-center my-3">
+    <form method="get" action="{{ url_for('adddoc') }}">
+        <button type="submit" class="btn btn-outline-success">
+            Add Doctor
+        </button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row g-1 justify-content-center">
+        {% for doc in doctors %}
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100 border-primary d-flex flex-column">
+                <div class="card-body d-flex flex-column align-items-center flex-grow-1">
+                    <h5 class="card-title">{{ doc.username }}</h5>
+                    <p class="card-text mb-1"><strong>Username:</strong> {{ doc.username }}</p>
+                    <p class="card-text mb-1"><strong>Department:</strong> {{ doc.department }}</p>
+                    <p class="card-text mb-1"><strong>Blacklisted:</strong> {{ "Yes" if doc.blacklist else "No" }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 d-flex justify-content-center gap-1">
+                    <a href="{{ url_for('updatedoc', username=doc.username) }}" class="btn btn-outline-primary">
+                        Update Doctor
+                    </a>
+                    <a href="{{ url_for('view_user', role='doctor', username=doc.username) }}" class="btn btn-outline-info">
+                        View Details
+                    </a>
+                    {% if doc.blacklist %}
+                        <form method="post" action="{{ url_for('unblacklist_doctor', username=doc.username) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-outline-success">
+                                Unblacklist Doctor
+                            </button>
+                        </form>
+                    {% else %}
+                        <form method="post" action="{{ url_for('blacklist_doctor', username=doc.username) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-outline-danger">
+                                Blacklist Doctor
+                            </button>
+                        </form>
+                    {% endif %}
+                    <form method="post" action="{{ url_for('remove_doctor', username=doc.username) }}" style="display:inline;">
+                        <button type="submit" class="btn btn-outline-dark">
+                            Remove Doctor
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-center">No doctors available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

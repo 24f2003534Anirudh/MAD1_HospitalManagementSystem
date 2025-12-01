@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{ role|capitalize }} Details
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{{ role|capitalize }} Details</h2>
+    <table class="table table-bordered mt-4">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ user.name or 'N/A' }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            {% if role == 'doctor' %}
+            <tr>
+                <th>Department</th>
+                <td>{{ user.department or 'N/A' }}</td>
+            </tr>
+            <tr>
+                <th>Blacklisted</th>
+                <td>{{ 'Yes' if user.blacklist else 'No' }}</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+</div>
+{% endblock %}

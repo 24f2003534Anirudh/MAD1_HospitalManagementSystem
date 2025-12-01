@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block title %}Availability{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-4">
+        <h3>Set Availability</h3>
+    </div>
+
+    <div class="card p-4 shadow-sm">
+        {% for day in days %}
+        {% set d_str = day.strftime('%Y-%m-%d') %}
+        
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-3">
+                <div class="p-3 bg-light border text-center fw-bold">{{ day.strftime('%d/%m/%Y') }}</div>
+            </div>
+
+            <!-- SLOT 1: 08:00 (Morning) -->
+            <div class="col-md-3">
+                <form action="{{ url_for('toggle_availability') }}" method="POST">
+                    <input type="hidden" name="date" value="{{ d_str }}">
+                    <input type="hidden" name="time_slot" value="08:00">
+                    {% if (d_str + '_08:00') in active_slots %}
+                    <button class="btn w-100 p-3 fw-bold border-2 border-success text-success bg-light">08:00 - 12:00</button>
+                    {% else %}
+                    <button class="btn w-100 p-3 fw-bold border-2 border-danger text-danger bg-light">08:00 - 12:00</button>
+                    {% endif %}
+                </form>
+            </div>
+
+            <!-- SLOT 2: 12:00 (Afternoon) -->
+            <div class="col-md-3">
+                <form action="{{ url_for('toggle_availability') }}" method="POST">
+                    <input type="hidden" name="date" value="{{ d_str }}">
+                    <input type="hidden" name="time_slot" value="12:00">
+                    {% if (d_str + '_12:00') in active_slots %}
+                    <button class="btn w-100 p-3 fw-bold border-2 border-success text-success bg-light">12:00 - 16:00</button>
+                    {% else %}
+                    <button class="btn w-100 p-3 fw-bold border-2 border-danger text-danger bg-light">12:00 - 16:00</button>
+                    {% endif %}
+                </form>
+            </div>
+
+            <!-- SLOT 3: 16:00 (Evening) -->
+            <div class="col-md-3">
+                <form action="{{ url_for('toggle_availability') }}" method="POST">
+                    <input type="hidden" name="date" value="{{ d_str }}">
+                    <input type="hidden" name="time_slot" value="16:00">
+                    {% if (d_str + '_16:00') in active_slots %}
+                    <button class="btn w-100 p-3 fw-bold border-2 border-success text-success bg-light">16:00 - 21:00</button>
+                    {% else %}
+                    <button class="btn w-100 p-3 fw-bold border-2 border-danger text-danger bg-light">16:00 - 21:00</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

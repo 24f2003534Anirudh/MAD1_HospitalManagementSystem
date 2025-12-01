@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Patient Details
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Patient Details</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th style="width: 30%;">Name</th>
+                        <td>{{ user.name or 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td>{{ user.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>Role</th>
+                        <td>Patient</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        <div class="card-footer">
+            <a href="{{ url_for('doctor_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

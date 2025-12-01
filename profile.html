@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Profile Page
+{% endblock %}
+
+{% block content %}
+    <h1 class="display-3 text-center"> Your Profile </h1>
+    <p class="text-center">Hello {{ user.username }}! This is your profile page.</p>    
+
+
+    <form action="" class="mx-auto" method="post" class="mx-auto" style="max-width: 500px;">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id ="username" class="form-control" required >
+        </div>
+
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id ="name", value="{{ user.name }}" class="form-control" reqquired >
+        </div>
+
+        <div class="form-group">
+            <label for="password">Current Password:</label>
+            <input type="password" name="currpassword" id ="currpassword" class="form-control" required >
+        
+        <div class="form-group">
+            <label for="password">New Password:</label>
+            <input type="password" name="newpassword" id ="newpassword" class="form-control" required="">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Confirm New Password:</label>
+            <input type="password" name="cnewpassword" id ="cnewpassword" class="form-control" >
+        </div>
+
+        <div class="buttons d-flex justify-content-end align-items-center">
+            <div class="form-group m-3">
+                <input type="submit" value="Update" class="btn btn-primary">
+            </div>
+            <a href="{{url_for('logout')}}" class="btn btn-outline-danger">Logout</a>
+        </div>
+    </form>
+{% endblock %}

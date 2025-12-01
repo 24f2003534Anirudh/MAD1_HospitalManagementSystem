@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Update Patient Profile
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Update Patient</h1>
+
+<form method="post" action="{{ url_for('updatepatient_post', username=patient.username) }}" class="mx-auto" style="max-width: 500px;">
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id ="username" class="form-control" value=" {{ patient.username  }}" required >
+    </div>
+
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id ="name", value="{{ patient.name }}" class="form-control" value=" {{ patient.name  }}" reqquired >
+    </div>
+
+    <div class="form-group">
+        <label for="password">Current Password:</label>
+        <input type="password" name="currpassword" id ="currpassword" class="form-control" required >
+    
+    <div class="form-group">
+        <label for="password">New Password:</label>
+        <input type="password" name="newpassword" id ="newpassword" class="form-control" required="">
+    </div>
+
+    <div class="form-group">
+        <label for="password">Confirm New Password:</label>
+        <input type="password" name="cnewpassword" id ="cnewpassword" class="form-control" >
+    </div>
+
+    <div class="buttons d-flex justify-content-end align-items-center">
+        <div class="form-group m-3">
+            <input type="submit" value="Update" class="btn btn-primary">
+        </div>
+        <a href="{{url_for('logout')}}" class="btn btn-outline-danger">Logout</a>
+    </div>
+</form>
+{% endblock %}

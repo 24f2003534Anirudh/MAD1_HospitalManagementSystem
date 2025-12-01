@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Add Doctor Page
+{% endblock %}
+
+{% block content %}
+    <h1 class="display-3 text-center"> Add Doctor </h1>
+
+
+
+
+    <form action ="" class ="form" method="post">
+
+        <div class="form-group">
+            <label for="docname" class="form-label">Doctor's Name</label>
+            <input type="text"  name="docname" id class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="department" class="form-label">Department</label>
+            <input type="text"  name="department" id class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="docusername" class="form-label">Doctor's Username</label>
+            <input type="text"  name="docusername" required class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password"  name="password" required class="form-control">
+        </div>
+        
+        <div class ="form-group">
+            <label for="confirm password" class="form-label">Confirm Password</label>
+            <input type="password"  name="confirm_password" required class="form-control">
+        </div>
+
+        
+        <div class="buttons d-flex justify-content-center align-items-center">
+            <div class="form-group m-3">
+                <input type="submit" value="Update" class="btn btn-outline-primary">
+            </div>
+        </div>
+    </form>
+{% endblock %}
